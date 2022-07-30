@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p th:text="'Ваш login: ' + ${user.getUsername()}"></p>
+<p th:text="'Ваша Role: ' + ${user.getRole()}"></p>
+<form action="/chat/my" method="get">
+    <input type="submit" value="Мои чаты">
+</form>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>chats</title>
+</head>
+<body>
+<div id="chats"></div>
+</body>
+<script th:inline="javascript">
+    var chats = [[${chats}]];
+    if(chats===[]){
+        document.getElementById("chats").innerHTML = "<h>У вас еще нет чата!</h><br>" +
+            "<p>Найти собеседника можно <a href='http://localhost:8080/user/search'>тут</a></p> "
+    }
+    else{
+        var html = "";
+        for(var i =0;i<chats.length;i++){
+            html+="<a href='http://localhost:8080/chat/"+chats[i].id+"'>"+chats[i].friend.username+"</a><br>"
+        }
+        document.getElementById("chats").innerHTML=html;
+    }
+
+
+
+</script>
+</html>

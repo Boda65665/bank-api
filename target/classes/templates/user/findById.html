@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>user</title>
+</head>
+<body>
+<p th:text="'login: ' + ${user.getUsername()}"></p>
+<p th:text="'Role: ' + ${user.getRole()}"></p>
+<form method="post" action="/chat/create">
+    <input type="hidden" th:value="${id_owner}" name="owner">
+    <input type="hidden" th:value="${user.getId()}" name="companion">
+    <input type="submit" value="написать">
+</form>
+<div th></div>
+</body>
+</html>0

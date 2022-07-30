@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+    <link th:href="@{/css/s.css}" rel="stylesheet" />
+    <script th:src="@{/js/users.js}"></script>
+
+</head>
+
+<body>
+
+<a style="color: white" href="http://localhost:8080/chat">
+<div class="menu">
+   <div class="back">
+        <i class="fa fa-chevron-left"></i>
+    <img src="https://i.imgur.com/DY6gND0.png" draggable="false"/></div></a>
+
+</div>
+<ol id ="chat" class="chat">
+</ol>
+<input class="textarea" type="text" placeholder="Type here!"/><div class="emojis"></div>
+</body>
+<script th:inline="javascript">
+
+    document.getElementsByClassName('menu')[0].innerHTML+="<div id='name'>"+[[${name_friend}]]+"</div>"
+    var chat_id = [[${chat_id}]];
+    var user_id = [[${user_id}]];
+    var length = [[${message_default_length}]]-1;
+    console.log(length);
+    let checkNewMessageInterval = setInterval(() => {
+        $.ajax({
+            url: 'http://localhost:8080/api/message/get',
+            method: 'get',
+            cache: false,
+
+            dataType: 'html',
+            data: {chat_id: chat_id},
+            success: function (response) {
+                var messages = JSON.parse(response.substr(response.indexOf('{')));
+                messages=messages["messages"]
+                var html = "";
+
+                if (messages.length > 0) {
+                    if (messages.length > length) {
+                        length=messages.length
+                        for (var i = 0; i < messages.length; i++) {
+                            console.log(i)
+
+                            var b = messages[i].owner.id === user_id;
+                            console.log(messages[0].time)
+
+
+                            var time= messages[i].time;
+                            if (b) {
+                                html += '<li class="self"><div class="avatar">' +
+                                    '<img src="https://i.imgur.com/HYcn9xO.png" draggable="false"/>' +
+                                    '</div><div class="msg">'+
+                                    '<p>'+messages[i].text+'</p>' +
+                                    '<time>'+time+'</time></div></li>'
+                            } else {
+                                html += '<li class="other">'+
+                                    '<div class="avatar">'+
+                                    '<img src="https://i.imgur.com/DY6gND0.png" draggable="false"/></div>'+
+                                    '<div class="msg">'+
+                                    '<p>'+messages[i].text+'</p>'+
+                                    '<time>'+time+'</time></div></li>'
+                            }
+
+                        }
+                        document.getElementsByClassName('chat')[0].innerHTML=html;
+                        var element = $("#chat");
+                        element.scrollTop(element.prop('scrollHeight'));
+                        console.log(element)
+
+                    }
+
+                }
+            }
+
+
+        })
+    },100)
+
+
+
+    $(document).on('keypress',function(e) {
+        var message = document.getElementsByClassName('textarea')[0].value;
+
+        console.log(message)
+        if(e.which === 13 && message!=="") {
+            console.log("12")
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:8080/api/message/send',
+                data: {"text":message,"chat_id":chat_id},
+                success: function(data){
+                    document.getElementsByClassName('textarea')[0].value="";
+
+
+                }
+            });
+        }
+    })</script>
+</html>
