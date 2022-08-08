@@ -3,6 +3,7 @@ package com.example.demo.Controllers.rest;
 import com.example.demo.DTO.ChatDTO;
 import com.example.demo.DTO.MessageDTO;
 import com.example.demo.DTO.UserDTO;
+import com.example.demo.Entiti.Status;
 import com.example.demo.JWT.JwtTokenProvider;
 import com.example.demo.Services.ChatService;
 import com.example.demo.Services.MessageService;
@@ -35,7 +36,7 @@ public class MessageController {
         ChatDTO chatDTO = chatService.findById(chat_id);
         UserDTO userDTO = userService.findByEmail(jwtTokenProvider.getUsername(jwt));
         if (chatDTO.getFriend().getId() == userDTO.getId() || chatDTO.getOwner().getId() == userDTO.getId()) {
-            messageDTOS = chatDTO.getMessageList();
+            messageDTOS = messageService.findTimeChat(chatDTO);
             Map<String,Object> response = new HashMap<>();
             response.put("messages",messageDTOS);
 
@@ -60,8 +61,11 @@ public class MessageController {
             MessageDTO messageDTO = new MessageDTO();
             messageDTO.setOwner(userDTO);
             messageDTO.setText(message);
+            messageDTO.setStatus(Status.NEW);
+
             Date date = new Date();
             messageDTO.setTime(date);
+            messageDTO.setChatDTO(chatDTO);
             int message_id = messageService.save(messageDTO);
             System.out.println(messageDTO);
             MessageDTO messageDTO1 = messageService.findById(message_id);

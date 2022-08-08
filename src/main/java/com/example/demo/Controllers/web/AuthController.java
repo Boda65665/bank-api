@@ -90,7 +90,6 @@ public class AuthController {
 
 
                 userDTO.setRole(Role.USER);
-                userDTO.setStatus(Status.PEOPLE);
                 userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
                 userService.saveUser(userDTO);
                 return "redirect:/login";

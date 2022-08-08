@@ -1,4 +1,4 @@
-package com.example.demo.JWT;
+package com.example.demo.sequriti;
 
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,16 +7,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.stereotype.Component;
 
 @Component
-public class JwtConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
-    private final JwtTokenFilter jwtTokenFilter;
+public class SequritiConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
+    private final SequritiFilter sequritiFilter;
 
-    public JwtConfigurer(JwtTokenFilter jwtTokenFilter) {
-        this.jwtTokenFilter = jwtTokenFilter;
+    public SequritiConfigurer(SequritiFilter sequritiFilter) {
+        this.sequritiFilter = sequritiFilter;
     }
 
     @Override
     public void configure(HttpSecurity httpSecurity) {
-        httpSecurity.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(sequritiFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
 }

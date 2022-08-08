@@ -23,10 +23,13 @@ public class Chat {
     @JoinColumn(name = "friend")
     private Users friend;
 
-    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE})
-    @JoinTable(name = "message_in_chat",joinColumns={@JoinColumn(name = "chat")},
-            inverseJoinColumns = {@JoinColumn(name = "message")}
-    )
+    @OneToMany(mappedBy = "chat")
     List<Message> messageList;
 
+    @Override
+    public String toString() {
+        return "Chat{" +
+                "id=" + id +
+                '}';
+    }
 }

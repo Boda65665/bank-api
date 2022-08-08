@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 
 @Data
 public class UserDTO{
-    Status status;
+
     int id;
     Role role;
     @NotNull

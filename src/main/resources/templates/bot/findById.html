@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${bot.getName()}"></title>
+</head>
+<body>
+<div class="information">
+    <p th:text="'Name: '+${bot.getName()}"></p>
+    <p th:text="'Description: '+ ${bot.getDescription()}"></p>
+</div>
+<div th:if="${bot.getOwner()==user}" class="owner">
+    <form th:action="'http://localhost:8080/bot/update/'+${bot.getId()}" method="get">
+        <input type="submit" value="Изменть данные!">
+    </form>
+    <br>
+    <p th:text="'Token: ' + ${bot.getToken()}"></p>
+    <form method="post" action="/bot/refresh" class="refreshToken">
+        <input th:value="${bot.getId()}" type="hidden" name="bot_id">
+        <input type="submit" value="refresh">
+    </form>
+
+
+</div>
+
+</body>
+</html>

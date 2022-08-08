@@ -7,7 +7,6 @@ public class UserConverters {
     public Users FromUserDTOinUsers(UserDTO user){
         Users users = new Users();
         users.setRole(user.getRole());
-        users.setStatus(user.getStatus());
         users.setPassword(user.getPassword());
         users.setLogin(user.getUsername());
         users.setEmail(user.getEmail());
@@ -18,7 +17,6 @@ public class UserConverters {
     public UserDTO FromUsersInUserDTO(Users user){
         UserDTO users = new UserDTO();
         users.setRole(user.getRole());
-        users.setStatus(user.getStatus());
 
         users.setPassword(user.getPassword());
         users.setUsername(user.getLogin());

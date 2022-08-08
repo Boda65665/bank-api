@@ -1,7 +1,9 @@
 package com.example.demo.Entiti;
 
-import javax.persistence.*;
+import lombok.Data;
 
+import javax.persistence.*;
+@Data
 @Entity
 @Table(name = "bots")
 public class Bot {
@@ -22,4 +24,7 @@ public class Bot {
     @OneToOne()
     @JoinColumn(name = "user_id")
     private Users user;
+    @OneToOne
+    @JoinColumn(name = "owner")
+    private Users owner;
 }

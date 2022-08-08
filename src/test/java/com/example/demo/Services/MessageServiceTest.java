@@ -1,8 +1,11 @@
 package com.example.demo.Services;
 
 import com.example.demo.Configurations.DemoApplication;
+import com.example.demo.DTO.BotDTO;
+import com.example.demo.DTO.ChatDTO;
 import com.example.demo.DTO.MessageDTO;
 import com.example.demo.DTO.UserDTO;
+import com.example.demo.Entiti.Status;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +36,26 @@ class MessageServiceTest {
 
     @Test
     void testSave() {
-        MessageDTO messageDTO = new MessageDTO();
-        messageDTO.setTime(null);
-        messageDTO.setText("ddd");
-        UserDTO userDTO = userService.findByEmail("pasaharpsuk@gmail.com");
-        System.out.println(userDTO);
-        messageDTO.setOwner(userDTO);
-        messageService.save(messageDTO);
+        System.out.println(userService.findById(2));
+    }
+
+    @Test
+    void findById() {
+        chatService.findById(2);
+    }
+
+
+    @Test
+    void testFindByChat() {
+        ChatDTO chatDTO = chatService.findById(2);
+        UserDTO userDTO = userService.findById(4);
+        System.out.println(messageService.findByChat(userDTO, Status.NEW,chatDTO));
+    }
+
+    @Test
+    void findTimeChat() {
+        ChatDTO chatDTO = new ChatDTO();
+        chatDTO.setId(5);
+        System.out.println(messageService.findTimeChat(chatDTO));
     }
 }

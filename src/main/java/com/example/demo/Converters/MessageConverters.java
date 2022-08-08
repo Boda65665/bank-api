@@ -9,11 +9,13 @@ public class MessageConverters {
         message_converters.setId(message.getId());
         message_converters.setText(message.getText());
         message_converters.setTime(message.getTime());
+        message_converters.setStatus(message.getStatus());
         return message_converters;
     }
     public Message FromMessageDTOInMessage(MessageDTO message){
         Message message_converters = new Message();
         message_converters.setId(message.getId());
+        message_converters.setStatus(message.getStatus());
         message_converters.setText(message.getText());
         message_converters.setTime(message.getTime());
         return message_converters;
